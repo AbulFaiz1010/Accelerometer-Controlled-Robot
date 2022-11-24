@@ -1,0 +1,74 @@
+
+//Motor A
+const int motorPin1F  = 3;  // Pin 2 of L293
+const int motorPin1B  = 4;  // Pin 7 of L293
+
+//Motor B
+const int motorPin2F  = 5; // Pin  10 of L293
+const int motorPin2B  = 6;  // Pin  15 of L293
+
+//buzzer
+const int Buzzer  = 12; 
+
+void setup() 
+{
+    Serial.begin(9600); // baud rate
+
+    pinMode(Buzzer, OUTPUT);
+
+    pinMode(motorPin1F, OUTPUT);
+    pinMode(motorPin1B, OUTPUT);
+    pinMode(motorPin2F, OUTPUT);
+    pinMode(motorPin2B, OUTPUT);
+  
+    digitalWrite(motorPin1F, LOW);
+    digitalWrite(motorPin1B, LOW);
+    digitalWrite(motorPin2F, LOW);
+    digitalWrite(motorPin2B, LOW);
+}
+
+void loop() 
+{
+  while (Serial.available())
+  {
+    int a = Serial.read();
+  
+     switch (a) 
+     {
+  
+        case 'F':
+        digitalWrite(motorPin1F, HIGH);
+        digitalWrite(motorPin2F, HIGH);
+        break;
+
+        case 'B':
+        digitalWrite(motorPin1B, HIGH);
+        digitalWrite(motorPin2B, HIGH);
+        break;
+   
+        case 'L':
+        digitalWrite(motorPin1F, HIGH);
+        break;
+
+        case 'R':
+        digitalWrite(motorPin2F, HIGH);
+        break;
+   
+    
+        case 'V':
+        digitalWrite(Buzzer, HIGH);  
+        break;
+   
+        case 'v':
+        digitalWrite(Buzzer, LOW);  
+        break;
+  
+        default:
+        digitalWrite(motorPin1F, LOW);
+        digitalWrite(motorPin1B, LOW);
+        digitalWrite(motorPin2F, LOW);
+        digitalWrite(motorPin2B, LOW);
+        break;
+     }
+  }
+}
